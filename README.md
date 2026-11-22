@@ -36,7 +36,8 @@ cd my-server
 hd add HerringtonDarkholme/hd-server-sdk
 ```
 
-The SDK has no tagged release yet, so `hd add` pins the current commit.
+`hd add` records the newest release in `hd.toml`. Run `hd update` later to
+move to a newer one.
 
 Allow the application to serve HTTP by adding one line under `[capabilities]`
 in `hd.toml`:
