@@ -18,6 +18,12 @@ pub fn main!() -> void $ HttpServer:
 ## Requirements
 
 - The `hd` command, from [hd-lang](https://github.com/HerringtonDarkholme/hd-lang).
+  Install it with Cargo:
+
+  ```sh
+  cargo install hd-lang
+  ```
+
 - Node.js 26. The local server and the deployment tasks run on it.
 
 ## Quick Start
