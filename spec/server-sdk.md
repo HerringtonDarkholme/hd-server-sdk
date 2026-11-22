@@ -505,8 +505,12 @@ uses the existing Deployment capability.
 8. r[std-server-sdk.vercel.disconnect] Native request abortion or premature response closure cancels only the owned request.
 9. r[std-server-sdk.vercel.malformed-native] An admitted native request with malformed authority, target or headers receives 400 before guest dispatch.
 10. r[std-server-sdk.vercel.shared-cleanup] The existing hundred-millisecond SDK cleanup bound and two-hundred-millisecond supervisor watchdog remain in effect.
+11. r[std-server-sdk.vercel.startup-load] The generated entry module finishes loading when every worker is ready, when startup fails, or when the startup budget ends, whichever is first.
 
-> **Why.** Native transport adaptation preserves physical response ownership
+> **Why.** A host that suspends a function's process between requests gives
+> workers no time to start after loading: every request would find none
+> ready and receive 503. Startup therefore belongs to module loading.
+> Native transport adaptation preserves physical response ownership
 > outside the worker that the supervisor can terminate. Per-worker state
 > remains independent, including across replacement and parallel requests.
 

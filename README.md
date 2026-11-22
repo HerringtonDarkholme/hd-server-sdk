@@ -165,8 +165,10 @@ They also print the output folder, which uses the `Console` grant that
 The deployed program gets the permissions in `[capabilities]`. Grants under
 `[dev-capabilities]` apply only on your machine.
 
-> **Status.** Both tasks are tested against local copies of the platform
-> runtimes. Deployment to the hosted services is not verified yet.
+> **Status.** Vercel deployment is verified on the hosted service:
+> [hdmx-dungeon](https://github.com/HerringtonDarkholme/hdmx-dungeon) runs
+> at <https://hdmx-dungeon.vercel.app>. The Cloudflare task is tested only
+> against a local copy of the Workers runtime.
 
 ### Cloudflare Workers
 

@@ -20,6 +20,11 @@ const supervisor=createSupervisor({program:{module,environment,grants,
  else if(record.kind==='terminated')refuse(new Error('application startup failed'));
 },log(record){(record.stream==='err'?console.error:console.log)(JSON.stringify(record));}});
 const fetcher=createFetchHandler(supervisor);
+// A host that suspends the process between requests gives the workers no
+// time to start once requests arrive. Finish startup while the module loads.
+let patience;
+await Promise.race([startup.catch(()=>{}),new Promise(resolve=>{patience=setTimeout(resolve,policy.startupMs);})]);
+clearTimeout(patience);
 export default createVercelNodeHandler(fetcher,{isReady:supervisor.ready,retryAfter:policy.retryAfter});
 export const close=()=>supervisor.close();
 `;

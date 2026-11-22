@@ -142,6 +142,13 @@ including unknown inactive directories. It reports errors without changing files
 Ordinary publication checks only the active and destination generations, so its
 work does not grow with the retained generation count. Retention is unchanged.
 
+The generated entry module finishes worker startup while it loads, within
+the startup budget. Vercel suspends a function's process between requests,
+so workers that were still starting when the module finished loading would
+never become ready, and every request would receive 503. A function
+prepared by this task serves <https://hdmx-dungeon.vercel.app>, which is the
+hosted acceptance for this task.
+
 Local controls use the official `@vercel/node` launcher and build-utils ZIP
 builder, exercising retained requests, overlapping work, body limits and
 production policy. The generated route uses a documented `request.path`
