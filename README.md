@@ -86,8 +86,13 @@ curl -X POST http://127.0.0.1:8080/ -d '{"message":"hello"}'
 # {"count":1,"message":"hello"}
 ```
 
-A fuller sample, with a slow route and both deployment tasks, is in
-[`examples/server-api`](examples/server-api).
+Two larger samples:
+
+- [`examples/server-api`](examples/server-api): a JSON API with a slow route
+  and both deployment tasks.
+- [hdmx-dungeon](https://github.com/HerringtonDarkholme/hdmx-dungeon): a
+  dungeon crawler played in the browser through htmx, with all game logic on
+  the server.
 
 ## Writing A Server
 
