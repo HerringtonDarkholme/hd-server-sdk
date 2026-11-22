@@ -15,8 +15,9 @@ supervision. The SDK also prepares Cloudflare Worker output through an
 ordinary deployment task. A second task prepares supervised Vercel Node
 functions. Hosted deployment acceptance remains unproven.
 
-From the repository root, build `cargo build -p hd_command --features wasmtime`.
-Then run `hd run` from `examples/server-api`, granting the SDK trait in the
+Build `hd` from the [hd-lang](https://github.com/HerringtonDarkholme/hd-lang)
+repository (`cargo build -p hd_command --features wasmtime`), then run
+`hd run` from `examples/server-api`, granting the SDK trait in the
 application's manifest. The sample accepts a JSON object with a `message`
 string; malformed JSON returns 400. `POST /slow` suspends for 150 ms and
 demonstrates overlapping workers. `HD_SERVER_PORT` selects the loopback
@@ -327,3 +328,21 @@ targets and headers receive 400 before guest dispatch.
 Vercel Edge is outside this SDK's scope because Vercel deprecated standalone
 [Edge Functions](https://vercel.com/docs/functions/runtimes/edge/edge-functions.rsc);
 a later request requires its own issue.
+
+## Repository
+
+This package moved out of the hd-lang repository on 2026-11-21, with its git
+history. hd's standard library keeps HTTP in both directions: `std.http`'s
+client, the `std.http_wire` byte messages, and the `request_from_wire` and
+`response_to_wire` conversions, specified in hd-lang's `spec/std/http.md`.
+This repository holds what is specific to the SDK:
+
+- the `server_sdk` package (this folder's `hd.toml`, `src`, `providers`,
+  `adapters`, `runtime`, `packaging`);
+- `examples/server-api`, an application with Cloudflare and Vercel deploy tasks;
+- `spec/server-sdk.md`, the package's specification (its wire-message rules are
+  now std's, in hd-lang's `spec/std/http.md`);
+- `docs/SERVER_APPLICATIONS.md`, the design record;
+- tests: `test/` (Node, run with `HD_SDK_TEST_HD` set to an `hd` binary),
+  `tests/` (hd tests), and `tests/conformance/` (runtime cases that use the
+  package).
